@@ -1,6 +1,6 @@
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
-// license found at www.lloseng.com 
+// license found at www.lloseng.com
 
 import java.io.*;
 import java.util.Scanner;
@@ -11,37 +11,37 @@ import common.*;
 /**
  * This class constructs the UI for a chat client.  It implements the
  * chat interface in order to activate the display() method.
- * Warning: Some of the code here is cloned in ServerConsole 
+ * Warning: Some of the code here is cloned in ServerConsole
  *
  * @author Fran&ccedil;ois B&eacute;langer
- * @author Dr Timothy C. Lethbridge  
+ * @author Dr Timothy C. Lethbridge
  * @author Dr Robert Lagani&egrave;re
  * @version September 2020
  */
-public class ClientConsole implements ChatIF 
+public class ClientConsole implements ChatIF
 {
   //Class variables *************************************************
-  
+
   /**
    * The default port to connect on.
    */
   final public static int DEFAULT_PORT = 5555;
-  
+
   //Instance variables **********************************************
-  
+
   /**
    * The instance of the client that created this ConsoleChat.
    */
   ChatClient client;
-  
-  
-  
+
+
+
   /**
    * Scanner to read from the console
    */
-  Scanner fromConsole; 
+  Scanner fromConsole;
 
-  
+
   //Constructors ****************************************************
 
   /**
@@ -50,46 +50,48 @@ public class ClientConsole implements ChatIF
    * @param host The host to connect to.
    * @param port The port to connect on.
    */
-  public ClientConsole(String host, int port) 
+  public ClientConsole(String host, int port)
   {
-    try 
+    try
     {
       client= new ChatClient(host, port, this);
-      
-      
-    } 
-    catch(IOException exception) 
+
+
+    }
+    catch(IOException exception)
     {
       System.out.println("Error: Can't setup connection!"
                 + " Terminating client.");
       System.exit(1);
     }
-    
+
     // Create scanner object to read from console
-    fromConsole = new Scanner(System.in); 
+    fromConsole = new Scanner(System.in);
   }
 
-  
+
   //Instance methods ************************************************
-  
+
   /**
-   * This method waits for input from the console.  Once it is 
+   * This method waits for input from the console.  Once it is
    * received, it sends it to the client's message handler.
    */
-  public void accept() 
+  public void accept()
   {
     try
     {
+      BufferedReader fromConsole =
+        new BufferedReader(new InputStreamReader(System.in));
 
       String message;
 
-      while (true) 
+      while (true)
       {
         message = fromConsole.nextLine();
         client.handleMessageFromClientUI(message);
       }
-    } 
-    catch (Exception ex) 
+    }
+    catch (Exception ex)
     {
       System.out.println
         ("Unexpected error while reading from console!");
@@ -102,22 +104,23 @@ public class ClientConsole implements ChatIF
    *
    * @param message The string to be displayed.
    */
-  public void display(String message) 
+  public void display(String message)
   {
     System.out.println("> " + message);
   }
 
-  
+
   //Class methods ***************************************************
-  
+
   /**
    * This method is responsible for the creation of the Client UI.
    *
    * @param args[0] The host to connect to.
    */
-  public static void main(String[] args) 
+  public static void main(String[] args)
   {
     String host = "";
+    int port = 0;
 
 
     try
