@@ -87,10 +87,16 @@ public class ClientConsole implements ChatIF
 
       while (true)
       {
-        message = fromConsole.nextLine();
-        client.handleMessageFromClientUI(message);
+        message = fromConsole.readLine();
+        char[] tempMessage = message.trim().toCharArray();
+        if(tempMessage[0] == '#') {
+        	client.control(message);
+        }else
+        	client.handleMessageFromClientUI(message);
+        }
       }
-    }
+
+
     catch (Exception ex)
     {
       System.out.println
@@ -125,13 +131,16 @@ public class ClientConsole implements ChatIF
 
     try
     {
+      port = Integer.parseInt(args[1]);
       host = args[0];
     }
     catch(ArrayIndexOutOfBoundsException e)
     {
+      port = 5555;
       host = "localhost";
+
     }
-    ClientConsole chat= new ClientConsole(host, DEFAULT_PORT);
+    ClientConsole chat= new ClientConsole(host, port);
     chat.accept();  //Wait for console data
   }
 }
