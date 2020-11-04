@@ -42,12 +42,6 @@ public class ServerConsole extends AbstractServer implements ChatIF
     }
   }
 
-  /**
-   * This method overrides the method in the ChatIF interface.  It
-   * displays a message onto the screen.
-   *
-   * @param message The string to be displayed.
-   */
   public void display(String message)
   {
     System.out.println("> " + message);
@@ -66,7 +60,7 @@ public class ServerConsole extends AbstractServer implements ChatIF
       port = 5555;
     }
     ServerConsole chat= new ServerConsole(port);
-    chat.accept();  //Wait for console data
+    chat.accept();
   }
 
   public void control(String message) {
@@ -129,7 +123,6 @@ public class ServerConsole extends AbstractServer implements ChatIF
 
 
 protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-	// TODO Auto-generated method stub
-
+	
 }
 }
